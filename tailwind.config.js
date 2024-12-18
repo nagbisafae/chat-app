@@ -15,6 +15,7 @@ module.exports = {
         "120px": "120px",
         "400px": "400px",
         cust: "226px",
+        custt: "250px",
         // Ajoute la valeur 120px
       },
       width: {
