@@ -4,3 +4,7 @@
 .bgc {
   background-color: linear-gradient(to right, #b2dbd5 0%, #f3f6f6 100%);
 }
+body {
+  font-family: 'Roboto Serif', serif;
+}
+

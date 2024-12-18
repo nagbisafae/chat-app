@@ -3,6 +3,10 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      fontFamily: {
+        serif: ['Roboto Serif', 'serif'],
+        libre: ['Libre Baskerville', 'serif'],
+      },
       colors: {
         customBlue: "#2B616D",
         BlueVert: "#B2DBD5",
