@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-
+import NavPhone from "./NavPhone";
 import Infochamps from "./Infochamps";
 import Aya from "../assets/AyaNajib.png";
 function Infodiv() {
@@ -47,7 +47,7 @@ function Infodiv() {
           />
         )}
       </div>
-      <div className=" bg-white bg-opacity-70 lg:h-72 h-custom3 rounded-lg mt-3 pt-6 lg:w-custom6 w-custom md:w-custom1 justify-center items-center ">
+      <div className=" bg-white bg-opacity-70 lg:h-72 h-custom6 lg:rounded-lg  rounded-s-3xl mt-3 pt-6 lg:w-custom6 w-full md:w-custom1 justify-center items-center pb-14   ">
         <div className="grid lg:grid-cols-2 grid-cols-1 justify-items-center items-center">
           <Infochamps
             label="Full Name"
@@ -82,12 +82,13 @@ function Infodiv() {
         <div className="flex justify-center items-center">
           <button
             onClick={handleEditClick}
-            class="hover:bg-customBlue transition duration-150 ease-out hover:ease-in bg-orange h-10 text-white rounded-full drop-shadow-lg  font-serif w-72 mt-8 text-center font-semibold text-sm  "
+            class="hover:bg-customBlue transition duration-150 ease-out hover:ease-in bg-orange h-10 text-white rounded-full drop-shadow-lg  font-serif w-72 mt-8 mb-8 text-center font-semibold text-sm  "
           >
             {isEditing ? "Save Changes" : "Edit"}
           </button>
         </div>
       </div>
+      <NavPhone />
     </>
   );
 }

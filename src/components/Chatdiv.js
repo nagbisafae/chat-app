@@ -6,6 +6,7 @@ import Imad from "../assets/Imad.png";
 import Rania from "../assets/Rania.png";
 // import {Nada} from "../assets/Nada.png"
 import { CiSearch } from "react-icons/ci";
+import NavPhone from "./NavPhone";
 function Chatdiv() {
   return (
     <div className="bg-white rounded-xl w-80  ">
@@ -51,6 +52,7 @@ function Chatdiv() {
           bgcol="bg-BlueVert"
         />
       </div>
+      <NavPhone />
     </div>
   );
 }
