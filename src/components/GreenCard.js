@@ -16,7 +16,6 @@ function GreenCard({
     >
       <div class="flex flex-col ">
         <svg
-          class=""
           width="119"
           height="108"
           viewBox="0 0 119 108"
@@ -70,13 +69,17 @@ function GreenCard({
 
           <img src={logo} alt="LOGO" className="w-64 h-36 pt-2 pl-16" />
         </div>
-        <p class="text-white font-serif pt-4 pl-3">{smtxt}</p>
-        <button
-          onClick={() => navigate(btnhref)}
-          class="hover:bg-orange transition duration-150 ease-out hover:ease-in bg-white h-10 text-customBlue rounded-full drop-shadow-lg ml-11 font-serif w-72 mt-8 text-center font-semibold text-sm border-2 border-orange"
-        >
-          {btntxt}
-        </button>
+        <div class="flex justify-center items-center">
+          <p class="text-white font-serif pt-4 ">{smtxt}</p>
+        </div>
+        <div class="flex justify-center items-center">
+          <button
+            onClick={() => navigate(btnhref)}
+            class="hover:bg-orange transition duration-150 ease-out hover:ease-in bg-white h-10 text-customBlue rounded-full drop-shadow-lg  font-serif w-72 mt-8 text-center font-semibold text-sm border-2 border-orange"
+          >
+            {btntxt}
+          </button>
+        </div>
       </div>
     </div>
   );
