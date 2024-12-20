@@ -1,6 +1,7 @@
 import React from "react";
-
-function Socialmedia({ buttonText, undertext, gray }) {
+import { useNavigate } from "react-router-dom";
+function Socialmedia({ buttonText, undertext, gray, btnhref }) {
+  const navigate = useNavigate();
   return (
     <>
       <svg
@@ -105,7 +106,10 @@ function Socialmedia({ buttonText, undertext, gray }) {
         </svg>
       </div>
       <div class="flex justify-center items-center">
-        <button class="hover:bg-customBlue transition duration-150 ease-out hover:ease-in bg-orange h-10 text-white rounded-full drop-shadow-lg font-serif w-72 mt-4 text-center font-semibold text-sm">
+        <button
+          onClick={() => navigate(btnhref)}
+          class="hover:bg-customBlue transition duration-150 ease-out hover:ease-in bg-orange h-10 text-white rounded-full drop-shadow-lg font-serif w-72 mt-4 text-center font-semibold text-sm"
+        >
           {buttonText}
         </button>
       </div>

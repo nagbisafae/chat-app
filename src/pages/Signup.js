@@ -5,7 +5,7 @@ import GreenCard from "../components/GreenCard";
 
 function signup() {
   return (
-    <div class=" bg-BlueVert bg-opacity-30 min-h-screen bgc">
+    <div class=" bg-gradient-to-b from-BlueVert to-[#F3F6F6] min-h-screen ">
       <div class="flex justify-between">
         <div>
           <GreenCard
@@ -18,7 +18,7 @@ function signup() {
         </div>
         <div>
           {/* Premier partie  */}
-          <label class="font-serif font-semibold text-customBlue leading-4 text-4xl mt-5 ml-28 inline-block ">
+          <label class="font-serif font-semibold text-customBlue leading-4 text-4xl mt-8 ml-28 inline-block ">
             Join Us!
           </label>
           <div class=" mt-3  mr-48 drop-shadow-lg rounded-3xl border border-BlueVert-2 w-96  bg-BlueVert bg-opacity-50 ">
@@ -29,6 +29,7 @@ function signup() {
                   label="Name:"
                   type="name"
                   placeholder="Enter your name"
+                  col="text-gris"
                 />
                 <svg
                   class="absolute left-80 top-16"
@@ -53,6 +54,7 @@ function signup() {
                   label="Email:"
                   type="email"
                   placeholder="Enter your email"
+                  col="text-gris"
                 />
                 <svg
                   class="absolute left-80 top-36"
@@ -74,6 +76,7 @@ function signup() {
                   label="Password:"
                   type="password"
                   placeholder="Enter your password"
+                  col="text-gris"
                 />
                 <svg
                   class="absolute left-80 top-cust "
@@ -123,6 +126,7 @@ function signup() {
               gray="Already have an account? "
               buttonText="Create an account"
               undertext="&nbsp;Log in"
+              btnhref="/Home"
             />
           </div>
         </div>

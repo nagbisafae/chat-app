@@ -4,8 +4,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        serif: ['Roboto Serif', 'serif'],
-        libre: ['Libre Baskerville', 'serif'],
+        serif: ["Roboto Serif", "serif"],
+        libre: ["Libre Baskerville", "serif"],
       },
       colors: {
         customBlue: "#2B616D",
@@ -20,6 +20,7 @@ module.exports = {
         "400px": "400px",
         cust: "226px",
         custt: "250px",
+        cu: "777px",
         // Ajoute la valeur 120px
       },
       width: {
@@ -28,10 +29,13 @@ module.exports = {
         custom2: "550px",
         custom3: "650px",
         custom4: "225px",
+        custom5: "777px",
+        custom6: "950px",
       },
       top: {
         cus: "225px",
       },
+      height: { custom5: "548px" },
     },
   },
   plugins: [],

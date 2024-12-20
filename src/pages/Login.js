@@ -4,11 +4,11 @@ import Socialmedia from "../components/Socialmedia";
 import GreenCard from "../components/GreenCard";
 function login() {
   return (
-    <div class=" bg-BlueVert bg-opacity-30 min-h-screen bgc">
+    <div class=" bg-gradient-to-b from-BlueVert to-[#F3F6F6] min-h-screen ">
       <div class="flex justify-between ">
         <div>
           {/* Premier partie  */}
-          <label class="font-serif font-semibold text-customBlue leading-4 text-3xl mt-5 ml-custt inline-block ">
+          <label class="font-serif font-semibold text-customBlue leading-4 text-3xl mt-12 ml-custt inline-block ">
             Welcome Back!
           </label>
           <div class=" mt-10  ml-48 drop-shadow-lg rounded-3xl border border-BlueVert-2 w-96  bg-BlueVert bg-opacity-50 ">
@@ -19,6 +19,7 @@ function login() {
                   label="Email:"
                   type="email"
                   placeholder="Enter your email"
+                  col="text-gris"
                 />
                 <svg
                   class="absolute left-80 top-16"
@@ -40,6 +41,7 @@ function login() {
                   label="Password:"
                   type="password"
                   placeholder="Enter your password"
+                  col="text-gris"
                 />
                 <svg
                   class="absolute left-80 top-36"
@@ -89,6 +91,7 @@ function login() {
               buttonText="Log in "
               undertext="&nbsp;create an account "
               gray="Not registred yet ?  "
+              btnhref="/Home"
             />
           </div>
         </div>
