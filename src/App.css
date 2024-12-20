@@ -7,4 +7,24 @@
 body {
   font-family: 'Roboto Serif', serif;
 }
+/* Custom no-scrollbar styles */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+.custom-scrollbar::-webkit-scrollbar {
+  width: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f3f6f6;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #96c4bd;
+  border-radius: 6px;
+}
 
