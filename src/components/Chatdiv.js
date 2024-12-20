@@ -15,7 +15,7 @@ function Chatdiv() {
           placeholder="Search"
           className="outline-none text-sm"
         />
-        <CiSearch className="text-gray-500 self-center text-lg " />
+        <CiSearch className="text-gray-500 self-center text-lg cursor-pointer " />
       </div>
       <div className="flex justify-center items-center mt-4">
         <Avatardiv

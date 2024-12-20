@@ -47,8 +47,8 @@ function Infodiv() {
           />
         )}
       </div>
-      <div className=" bg-white bg-opacity-70 h-72 rounded-lg mt-3 pt-6 w-custom6 justify-center items-center ">
-        <div className="grid grid-cols-2 justify-items-center items-center">
+      <div className=" bg-white bg-opacity-70 lg:h-72 h-custom3 rounded-lg mt-3 pt-6 lg:w-custom6 w-custom md:w-custom1 justify-center items-center ">
+        <div className="grid lg:grid-cols-2 grid-cols-1 justify-items-center items-center">
           <Infochamps
             label="Full Name"
             value={userName}

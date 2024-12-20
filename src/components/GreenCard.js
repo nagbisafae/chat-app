@@ -8,13 +8,14 @@ function GreenCard({
   maintxt1,
   roundedClass,
   btnhref,
+  att,
 }) {
   const navigate = useNavigate();
   return (
     <div
-      className={`bg-customBlue h-screen w-custom2 ${roundedClass} flex justify-center  pt-12  `}
+      className={`bg-customBlue h-screen w-custom2 ${roundedClass} flex justify-center  pt-12 ${att} `}
     >
-      <div class="flex flex-col ">
+      <div class="flex flex-col justify-center items-center ">
         <svg
           width="119"
           height="108"
