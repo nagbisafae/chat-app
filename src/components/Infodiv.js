@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import NavPhone from "./NavPhone";
 import Infochamps from "./Infochamps";
 import Aya from "../assets/AyaNajib.png";
+
 function Infodiv() {
   const [userName, setuserName] = useState("Aya Najib");
   const [email, setemail] = useState("aya.najib@gmail.com");
@@ -47,8 +48,8 @@ function Infodiv() {
           />
         )}
       </div>
-      <div className=" bg-white bg-opacity-70 lg:h-72 h-custom6 lg:rounded-lg  rounded-s-3xl mt-3 pt-6 lg:w-custom6 w-full md:w-custom1 justify-center items-center pb-14   ">
-        <div className="grid lg:grid-cols-2 grid-cols-1 justify-items-center items-center">
+      <div className=" bg-white bg-opacity-70 lg:h-72 h-custom6 lg:rounded-lg  md:rounded-lg rounded-t-3xl mt-3 pt-6 lg:w-custom6 w-full md:w-96 justify-center items-center pb-14 md:pb-2  ">
+        <div className="grid lg:grid-cols-2  grid-cols-1 justify-items-center items-center">
           <Infochamps
             label="Full Name"
             value={userName}

@@ -9,7 +9,7 @@ function NavPhone() {
   const navigate = useNavigate();
   return (
     <div
-      class="fixed bottom-0 left-0 right-0 bg-white shadow-2xl sm:hidden flex justify-around py-3 h-16
+      class="fixed bottom-0 left-0 right-0 bg-white shadow-2xl  flex md:hidden lg:hidden justify-around py-3 h-16
     "
     >
       <button

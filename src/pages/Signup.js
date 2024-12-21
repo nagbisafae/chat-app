@@ -2,7 +2,7 @@ import React from "react";
 import InputField from "../components/InputField";
 import Socialmedia from "../components/Socialmedia";
 import GreenCard from "../components/GreenCard";
-
+import girl from "../assets/Profilegirl.png";
 function signup() {
   return (
     <>
@@ -18,13 +18,16 @@ function signup() {
           />
         </div>
         <div class=" bg-gradient-to-b from-BlueVert to-[#F3F6F6] min-h-screen w-custom7 ">
+          <div className=" md:flex flex justify-center items-center lg:hidden">
+            <img src={girl} alt="welcome" className="w-56 h-48 mt-4" />
+          </div>
           <div className="flex justify-center items-center">
             <label class="font-serif font-semibold text-customBlue leading-4 text-4xl mt-8 mb-3 inline-block ">
               Join Us!
             </label>
           </div>
           <div className="flex justify-center items-center">
-            <div class=" mt-3  drop-shadow-lg rounded-3xl border border-BlueVert-2 w-96  bg-BlueVert bg-opacity-50 ">
+            <div class=" mt-3  lg:drop-shadow-lg lg:rounded-3xl lg:border lg:border-BlueVert-2 lg:w-96  lg:bg-BlueVert lg:bg-opacity-50 ">
               {/* Formulaire   */}
               <form class="relative">
                 <div class="flex justify-center items-center">
@@ -35,7 +38,7 @@ function signup() {
                     col="text-gris"
                   />
                   <svg
-                    class="absolute left-80 top-16"
+                    class="absolute left-300px top-16"
                     width="12"
                     height="12"
                     viewBox="0 0 12 12"
@@ -60,7 +63,7 @@ function signup() {
                     col="text-gris"
                   />
                   <svg
-                    class="absolute left-80 top-36"
+                    class="absolute left-300px top-36"
                     width="13"
                     height="13"
                     viewBox="0 0 13 13"
@@ -82,7 +85,7 @@ function signup() {
                     col="text-gris"
                   />
                   <svg
-                    class="absolute left-80 top-cust "
+                    class="absolute left-300px top-cust "
                     width="14"
                     height="14"
                     viewBox="0 0 14 14"

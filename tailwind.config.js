@@ -19,6 +19,8 @@ module.exports = {
         "60px": "60px",
         "120px": "120px",
         "400px": "400px",
+        "450px": "450px",
+        "300px": "300px",
         cust: "226px",
         custt: "250px",
         cu: "777px",
@@ -37,7 +39,10 @@ module.exports = {
       top: {
         cus: "225px",
       },
-      height: { custom5: "548px" },
+      height: { custom5: "548px", custom11: "670px" },
+      left: {
+        lee: "300px",
+      },
     },
   },
   plugins: [],

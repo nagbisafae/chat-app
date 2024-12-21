@@ -6,7 +6,7 @@ function Navbar() {
   return (
     <>
       <div
-        class={`bg-white bg-opacity-70  w-40 h-custom5 rounded-xl ml-4 shadow-lg  justify-center pt-6  hidden md:hidden lg:flex`}
+        class={`bg-white bg-opacity-70  w-40 lg:h-custom5 md:h-custom7  rounded-xl ml-4 shadow-lg  justify-center pt-6  hidden md:flex lg:flex`}
       >
         <div>
           <ButtonsBar icone={FaHome} label="Home" btnhref="/Home" />
@@ -22,7 +22,7 @@ function Navbar() {
             icone={FaSignOutAlt}
             label="Log out"
             btnhref="/#"
-            marg="mt-72"
+            marg="lg:mt-72 md:mt-450px "
           />
         </div>
       </div>

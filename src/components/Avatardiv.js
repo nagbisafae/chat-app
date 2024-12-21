@@ -3,7 +3,7 @@ import React from "react";
 function Avatardiv({ img, name, lastmess, numb, bgcol, mg, bgnumb }) {
   return (
     <div
-      className={`${bgcol} w-72 rounded-3xl h-24 flex cursor-pointer hover:bg-customBlue1 `}
+      className={`${bgcol} w-72 rounded-3xl h-24 flex cursor-pointer hover:bg-customBlue1 mb-5 md:mb-0`}
     >
       <img src={img} className=" w-20 h-20" alt="img" />
       <div class="flex flex-col justify-center">

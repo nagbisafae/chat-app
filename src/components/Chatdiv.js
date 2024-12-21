@@ -6,10 +6,10 @@ import Imad from "../assets/Imad.png";
 import Rania from "../assets/Rania.png";
 // import {Nada} from "../assets/Nada.png"
 import { CiSearch } from "react-icons/ci";
-import NavPhone from "./NavPhone";
+
 function Chatdiv() {
   return (
-    <div className="bg-white rounded-xl w-80  ">
+    <div className="bg-white rounded-xl w-80 lg:h-auto h-custom11 md:h-auto ">
       <div className="bg-white rounded-lg shadow-lg flex justify-around  mt-6 h-14 text-center ml-3 mr-3 ">
         <input
           type="text"
@@ -52,7 +52,6 @@ function Chatdiv() {
           bgcol="bg-BlueVert"
         />
       </div>
-      <NavPhone />
     </div>
   );
 }
