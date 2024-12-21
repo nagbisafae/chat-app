@@ -1,42 +1,13 @@
 import React, { useState } from "react";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
-import Salma from "../images/salma.jpg";
-import Nada from "../images/nada.png";
-import Amine from "../images/amine.png";
 import Card from "../components/Card";
 import SearchBar from "../components/SearchBar";
 import CategoryFilter from "../components/CategoryFilter";
-import "../App.css"
+import "../App.css";
+import experts from "../data/experts";
 
 function Home() {
-  const experts = [
-    {
-      id: 1,
-      name: "Dr. Salma - Your Animal Care Expert",
-      description: "Ask your questions to an expert veterinarian about the health, nutrition, and care of your pets.",
-      buttonText: "Start a conversation",
-      image: Salma,
-      category: "Veterinarian",
-    },
-    {
-      id: 2,
-      name: "Nada - Experienced Lawyer",
-      description: "Share your legal questions with a qualified lawyer. Get quick and tailored answers.",
-      buttonText: "Start a conversation",
-      image: Nada,
-      category: "Law",
-    },
-    {
-      id: 3,
-      name: "Chef Amine - Your Culinary Expert",
-      description: "Discover delicious recipes and tips to impress your guests.",
-      buttonText: "Start a conversation",
-      image: Amine,
-      category: "Cuisine",
-    },
-  ];
-
   const [selectedCategory, setSelectedCategory] = useState("Recommended");
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -67,6 +38,8 @@ function Home() {
         {filteredExperts.map((expert) => (
           <div key={expert.id} className="w-full">
             <Card
+              key={expert.id}
+              id={expert.id}
               image={expert.image}
               name={expert.name}
               description={expert.description}
