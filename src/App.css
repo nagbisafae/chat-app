@@ -5,7 +5,7 @@
   background-color: linear-gradient(to right, #b2dbd5 0%, #f3f6f6 100%);
 }
 body {
-  font-family: 'Roboto Serif', serif;
+  font-family: "Roboto Serif", serif;
 }
 /* Custom no-scrollbar styles */
 .no-scrollbar::-webkit-scrollbar {
@@ -28,3 +28,42 @@ body {
   border-radius: 6px;
 }
 
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in-out; /* Durée de la transition */
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 500ms ease-in-out; /* Durée de la transition */
+}
+/* Animation pour la transition de la GreenCard */
+.greenCard-enter {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+.greenCard-enter-active {
+  transform: translateX(0);
+  opacity: 1;
+  transition: transform 500ms ease-in-out, opacity 500ms ease-in-out;
+}
+
+.greenCard-exit {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.greenCard-exit-active {
+  transform: translateX(-100%);
+  opacity: 0;
+  transition: transform 500ms ease-in-out, opacity 500ms ease-in-out;
+}

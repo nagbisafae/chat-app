@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-function Socialmedia({ buttonText, undertext, gray, btnhref }) {
+function Socialmedia({ buttonText, undertext, gray, btnhref, buttonText2 }) {
   const navigate = useNavigate();
   return (
     <>
@@ -115,9 +115,12 @@ function Socialmedia({ buttonText, undertext, gray, btnhref }) {
       </div>
       <div class="font-serif mt-4  mb-4 font-normal text-sm flex justify-center items-center">
         <label class="text-gris">{gray} </label>
-        <label class=" cursor-pointer text-orange font-serif hover-underline ">
+        <button
+          onClick={() => navigate(buttonText2)}
+          class=" cursor-pointer text-orange font-serif hover-underline "
+        >
           {undertext}
-        </label>
+        </button>
       </div>
     </>
   );
