@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import SidebarItems from "./SidebarItems";
-import { IoHome, IoChatbubblesOutline, IoPersonCircleSharp } from "react-icons/io5";
+import {
+  IoHome,
+  IoChatbubblesOutline,
+  IoPersonCircleSharp,
+} from "react-icons/io5";
 import { FiLogOut } from "react-icons/fi";
 
-const Sidebar = () => {
+const Sidebar = ({ att }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [selected, setSelected] = useState("Home");
@@ -23,11 +27,25 @@ const Sidebar = () => {
 
   const items = [
     { id: "Home", icon: <IoHome size={24} />, title: "Home", path: "/Home" },
-    { id: "Chats", icon: <IoChatbubblesOutline size={24} />, title: "Chats", path: "/Chats" },
-    { id: "Profile", icon: <IoPersonCircleSharp size={24} />, title: "Profile", path: "/Profile" },
+    {
+      id: "Chats",
+      icon: <IoChatbubblesOutline size={24} />,
+      title: "Chats",
+      path: "/Chats",
+    },
+    {
+      id: "Profile",
+      icon: <IoPersonCircleSharp size={24} />,
+      title: "Profile",
+      path: "/Profile",
+    },
   ];
 
-  const logout = { id: "Logout", icon: <FiLogOut size={24} />, title: "Log out" };
+  const logout = {
+    id: "Logout",
+    icon: <FiLogOut size={24} />,
+    title: "Log out",
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("authToken");
@@ -37,7 +55,9 @@ const Sidebar = () => {
   return (
     <>
       {/* Sidebar pour les écrans moyens et grands */}
-      <div className="hidden sm:flex flex-col items-center py-6 absolute w-[166px] left-[15px] top-[15px] bottom-[15px] bg-white/70 shadow-md rounded-[20px]">
+      <div
+        className={`hidden sm:flex  ${att} flex-col items-center py-6 absolute w-[166px] left-[15px] top-[15px] bottom-[15px] bg-white/70 shadow-md rounded-[20px]`}
+      >
         {items.map((item) => (
           <SidebarItems
             key={item.id}
@@ -71,7 +91,9 @@ const Sidebar = () => {
               navigate(item.path);
             }}
             className={`flex flex-col items-center ${
-              selected === item.id ? "text-orange font-bold" : "text-customBlue font-medium"
+              selected === item.id
+                ? "text-orange font-bold"
+                : "text-customBlue font-medium"
             }`}
           >
             {item.icon}
