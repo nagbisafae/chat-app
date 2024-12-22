@@ -1,6 +1,9 @@
 import SalmaImage from "../images/salma.jpg";
 import NadaImage from "../images/nada.png";
 import AmineImage from "../images/amine.png";
+import Vet from '../images/vet.jpeg';
+import Law from '../images/law.jpg';
+import Food from '../images/image.png';
 
 const experts = [
     {
@@ -11,6 +14,7 @@ const experts = [
       image: SalmaImage,
       category: "Veterinarian",
       customMessage: "Hi! I'm Dr. Salma. What are your questions? Ask me about your pets' health, nutrition, and care.",
+      background: Vet,
     },
     {
       id: 2,
@@ -20,6 +24,7 @@ const experts = [
       image: NadaImage,
       category: "Law",
       customMessage: "Hello! I'm Nada. How can I help you with your legal issues?",
+      background: Law
     },
     {
       id: 3,
@@ -29,6 +34,7 @@ const experts = [
       image: AmineImage,
       category: "Cuisine",
       customMessage: "Hey! I'm Chef Amine. Let's talk about cooking and recipes!",
+      background: Food
     },
   ];
 
