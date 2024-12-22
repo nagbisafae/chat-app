@@ -9,7 +9,7 @@ import { CiSearch } from "react-icons/ci";
 
 function Chatdiv() {
   return (
-    <div className="bg-white rounded-xl w-80 lg:h-auto h-custom11 md:h-auto ">
+    <div className="bg-white rounded-xl w-72 lg:h-auto h-[400px] md:h-auto ">
       <div className="bg-white rounded-lg shadow-lg flex justify-around  mt-6 h-14 text-center ml-3 mr-3 ">
         <input
           type="text"
