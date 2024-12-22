@@ -14,7 +14,7 @@ const Sidebar = ({ att }) => {
   const [selected, setSelected] = useState("Home");
 
   useEffect(() => {
-    // Met à jour l'état sélectionné en fonction de l'URL actuelle
+    // Update selected state based on current URL
     const currentPath = location.pathname;
     if (currentPath === "/Chats") {
       setSelected("Chats");
@@ -54,9 +54,9 @@ const Sidebar = ({ att }) => {
 
   return (
     <>
-      {/* Sidebar pour les écrans moyens et grands */}
+      {/* Sidebar for large screens */}
       <div
-        className={`hidden lg:flex  ${att} flex-col items-center py-6 absolute w-[166px] left-[15px] top-[15px] bottom-[15px] bg-white/70 shadow-md rounded-[20px]`}
+        className={`hidden lg:flex ${att} flex-col items-center py-6 fixed w-[166px] left-[15px] top-[15px] bottom-[15px] bg-white/70 shadow-md rounded-[20px]`}
       >
         {items.map((item) => (
           <SidebarItems
@@ -81,7 +81,7 @@ const Sidebar = ({ att }) => {
         </div>
       </div>
 
-      {/* Bottom Navigation Bar pour les petits écrans */}
+      {/* Bottom Navigation Bar for small screens */}
       <div className="fixed bottom-0 left-0 right-0 bg-white shadow-2xl lg:hidden flex justify-around py-3">
         {items.map((item) => (
           <button

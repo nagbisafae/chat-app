@@ -1,23 +1,22 @@
 import React from "react";
-// import Profilepic from "../components/Profilepic";
-// import Navbar from "../components/Navbar";
 import Header from "../components/Header";
 import Infodiv from "../components/Infodiv";
-import "../App.css";
 import Sidebar from "../components/Sidebar";
-function profile() {
+import "../App.css";
+
+function Profile() {
   return (
-    <div className="bg-BlueVert min-h-screen   ">
-      <div className="flex ">
-        <Sidebar />
-        <div className="flex flex-col items-center flex-1 md:pl-[180px]">
-          <Header />
-          {/* <Profilepic /> */}
-          <Infodiv />
-        </div>
+    <div className="bg-gradient-to-b from-BlueVert to-[#F3F6F6] min-h-screen h-screen flex">
+      {/* Sidebar */}
+      <Sidebar />
+
+      {/* Main Content */}
+      <div className="flex-grow lg:ml-[200px] px-6 flex flex-col items-center">
+        <Header />
+        <Infodiv />
       </div>
     </div>
   );
 }
 
-export default profile;
+export default Profile;
