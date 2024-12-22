@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Profile from "./pages/Profile";
+import "./App.css";
 import Landing from "./pages/Landing";
 import Chats from "./pages/Chats";
 

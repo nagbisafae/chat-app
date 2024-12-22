@@ -1,6 +1,10 @@
 import React from "react";
+import "../App.css";
+import { motion } from "framer-motion";
 import logo from "../assets/LOGO.png";
+// import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 function GreenCard({
   maintxt,
   btntxt,
@@ -11,12 +15,18 @@ function GreenCard({
   att,
 }) {
   const navigate = useNavigate();
+
   return (
-    <div
-      className={`bg-customBlue h-screen w-custom2 ${roundedClass} flex justify-center  pt-12 ${att} `}
+    <motion.div
+      className={`bg-customBlue h-screen w-custom2 ${roundedClass} flex justify-center pt-12 ${att}`}
+      initial={{ opacity: 0, x: "100%" }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: "-100%" }}
+      transition={{ duration: 0.5 }}
     >
-      <div class="flex flex-col justify-center items-center ">
+      <div className="flex flex-col justify-center items-center">
         <svg
+          className="mr-60"
           width="119"
           height="108"
           viewBox="0 0 119 108"
@@ -68,7 +78,11 @@ function GreenCard({
             {maintxt1}
           </p>
 
-          <img src={logo} alt="LOGO" className="w-64 h-36 pt-2 pl-16" />
+          <img
+            src={logo}
+            alt="LOGO"
+            className="object-contain h-24 pt-2 pl-16"
+          />
         </div>
         <div class="flex justify-center items-center">
           <p class="text-white font-serif pt-4 ">{smtxt}</p>
@@ -82,7 +96,7 @@ function GreenCard({
           </button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

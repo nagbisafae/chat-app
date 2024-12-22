@@ -40,6 +40,7 @@ module.exports = {
         custom5: "777px",
         custom6: "950px",
         custom7: "730px",
+        custom12: "550px",
       },
       top: {
         cus: "225px",
