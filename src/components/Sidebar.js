@@ -56,7 +56,7 @@ const Sidebar = ({ att }) => {
     <>
       {/* Sidebar pour les écrans moyens et grands */}
       <div
-        className={`hidden sm:flex  ${att} flex-col items-center py-6 absolute w-[166px] left-[15px] top-[15px] bottom-[15px] bg-white/70 shadow-md rounded-[20px]`}
+        className={`hidden lg:flex  ${att} flex-col items-center py-6 absolute w-[166px] left-[15px] top-[15px] bottom-[15px] bg-white/70 shadow-md rounded-[20px]`}
       >
         {items.map((item) => (
           <SidebarItems
@@ -82,7 +82,7 @@ const Sidebar = ({ att }) => {
       </div>
 
       {/* Bottom Navigation Bar pour les petits écrans */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white shadow-2xl sm:hidden flex justify-around py-3">
+      <div className="fixed bottom-0 left-0 right-0 bg-white shadow-2xl lg:hidden flex justify-around py-3">
         {items.map((item) => (
           <button
             key={item.id}
