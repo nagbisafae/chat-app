@@ -3,6 +3,7 @@ import DiscussionBubble from "./DiscussionBubble";
 import { useParams } from "react-router-dom"; // Pour récupérer l'ID depuis l'URL
 import { formatDate } from "../utils/formatDate";
 import { LuSendHorizontal } from "react-icons/lu";
+import Fuse from "fuse.js";
 
 function Discussion({ customMessage, timestamp }) {
   const { expertId } = useParams(); // Récupère l'ID depuis l'URL
@@ -42,11 +43,6 @@ function Discussion({ customMessage, timestamp }) {
     fetchData();
   }, []);
 
-  // Fonction pour normaliser une chaîne
-  const normalizeText = (text) => {
-    return text.toLowerCase().replace(/\s+/g, "");
-  };
-
   const handleSendMessage = () => {
     if (!userMessage.trim()) return;
 
@@ -61,19 +57,24 @@ function Discussion({ customMessage, timestamp }) {
     setError("");
 
     try {
-      // Recherche de la réponse dans les données API
-      const normalizedUserMessage = normalizeText(userMessage);
-      const matchedResponse = apiData.find(
-        (entry) =>
-          entry.category === specialty &&
-          normalizeText(entry.question) === normalizedUserMessage
-      );
+      // Configurer Fuse.js
+      const fuse = new Fuse(apiData, {
+        keys: ["question"], // Rechercher dans le champ "question"
+        threshold: 0.6, // Accepte des correspondances éloignées
+        minMatchCharLength: 1, // Correspond même à un seul mot
+        includeScore: true, // Ajoute un score pour trier les résultats
+        shouldSort: true, // Trie les résultats par pertinence
+      });
 
-      const responseMessage = matchedResponse
-        ? matchedResponse.answer
-        : `Sorry, I don't know ask me Later .`;
+      // Rechercher dans les données de l'API
+      const results = fuse.search(userMessage);
 
-      // Ajout de la réponse de l'expert
+      // Gérer la réponse
+      const responseMessage =
+        results.length > 0
+          ? results[0].item.answer
+          : "Sorry, I couldn't find a relevant answer. Could you try rephrasing?";
+
       const newExpertMessage = {
         sender: "expert",
         message: responseMessage,
