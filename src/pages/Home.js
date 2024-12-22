@@ -21,7 +21,7 @@ function Home() {
   
 
   return (
-    <div className="min-h-screen h-screen overflow-y-auto bg-gradient-to-b from-BlueVert to-[#F3F6F6] pb-20 sm:pb-0 custom-scrollbar">
+    <div className="min-h-screen h-screen overflow-y-auto bg-gradient-to-b from-BlueVert to-[#F3F6F6] pb-28 lg:pb-0 custom-scrollbar">
       <Header />
       <Sidebar />
       <SearchBar
@@ -34,7 +34,7 @@ function Home() {
         selectedCategory={selectedCategory}
         onCategoryChange={setSelectedCategory}
       />
-      <div className="w-full max-w-2xl mt-2 grid grid-cols-1 gap-3 px-4 sm:px-0 mx-auto">
+      <div className="w-full max-w-2xl mt-6 grid grid-cols-1 gap-4 px-4 lg:px-0 mx-auto">
         {filteredExperts.map((expert) => (
           <div key={expert.id} className="w-full">
             <Card
