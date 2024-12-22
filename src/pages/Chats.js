@@ -9,11 +9,11 @@ function Chats() {
   const { expertId } = useParams();
 
   return (
-    <div className="bg-gradient-to-b from-BlueVert to-[#F3F6F6] min-h-screen flex">
+    <div className="bg-gradient-to-b from-BlueVert to-[#F3F6F6] min-h-screen flex h-screen">
       <Sidebar />
 
       {/* Main Content */}
-      <div className="flex-grow ml-[200px] lg:ml-[186px] px-6 flex flex-col lg:flex-row gap-4 mt-[15px] mb-[15px]">
+      <div className="flex-grow lg:ml-[200px] px-6 flex flex-col lg:flex-row gap-4 mt-[15px] mb-[15px]">
         <Chatdiv className="w-full lg:w-1/3" />
 
         <div className="flex-grow flex justify-center">

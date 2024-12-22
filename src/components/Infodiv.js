@@ -35,7 +35,7 @@ function Infodiv() {
           onClick={() => fileInputRef.current?.click()} // Utilisation de useRef pour cliquer sur l'input file
         />
         <div className="flex justify-center items-center">
-          <label className="font-libre mt-2 font-bold">{userName}</label>
+          <label className="font-libre text-customBlue mt-2 font-bold">{userName}</label>
         </div>
         {/* Champ de sélection d'image masqué, qui est déclenché par un clic sur l'image */}
         {isEditing && (
