@@ -95,7 +95,7 @@ function Discussion({ customMessage, timestamp }) {
   }
 
   return (
-    <div className="p-4 bg-white/70 rounded-xl shadow-md h-[400px] flex flex-col">
+    <div className="p-4 bg-white/70 rounded-xl shadow-md h-[550px] flex flex-col">
       <p className="text-orange text-sm font-semibold text-center mb-2">
         {formatDate(timestamp)}
       </p>
