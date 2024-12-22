@@ -7,7 +7,9 @@ import { useParams } from "react-router-dom";
 function Discdiv() {
   const { expertId } = useParams();
 
-  const selectedExpert = experts.find((expert) => expert.id === parseInt(expertId));
+  const selectedExpert = experts.find(
+    (expert) => expert.id === parseInt(expertId)
+  );
 
   if (!selectedExpert) {
     return <p className="text-center text-customBlue">Expert not found!</p>;
@@ -21,10 +23,9 @@ function Discdiv() {
       />
       <Discussion
         customMessage={selectedExpert.customMessage}
-        timestamp={new Date()} 
+        timestamp={new Date()}
       />
     </div>
   );
 }
-
 export default Discdiv;

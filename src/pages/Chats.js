@@ -12,7 +12,7 @@ function Chats() {
           <div className="flex flex-col "></div>
           <Chatdiv />
           <div className="flex-grow flex justify-center">
-            <div className="w-[800px]">
+            <div className="w-[750px]">
               <Discdiv />
             </div>
           </div>
