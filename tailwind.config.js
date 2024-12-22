@@ -3,6 +3,11 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      zIndex: {
+        0: "0",
+        10: "10",
+        20: "20",
+      },
       fontFamily: {
         serif: ["Roboto Serif", "serif"],
         libre: ["Libre Baskerville", "serif"],
