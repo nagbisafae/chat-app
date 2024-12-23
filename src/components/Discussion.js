@@ -1,41 +1,36 @@
 import React, { useState, useEffect } from "react";
 import DiscussionBubble from "./DiscussionBubble";
-import { useParams } from "react-router-dom"; // For fetching the ID from the URL
+import { useParams } from "react-router-dom";
 import { formatDate } from "../utils/formatDate";
 import { LuSendHorizontal } from "react-icons/lu";
-import Fuse from "fuse.js";
 
-function Discussion({ customMessage, timestamp }) {
-  const { expertId } = useParams(); // Fetch the ID from the URL
+function Discussion({ timestamp }) {
+  const { expertId } = useParams();
   const [userMessage, setUserMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [apiData, setApiData] = useState([]); // Store API data
 
-  // Fetch logged-in user
   const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
 
-  // Specialties based on expert ID
   const specialties = {
     1: "health", // Salma
     2: "lawyer", // Nada
     3: "cuisine", // Amine
   };
 
-  // Get specialty
   const specialty = specialties[expertId] || null;
 
-  // Load chat history from localStorage on mount
   useEffect(() => {
     const storedChats = JSON.parse(localStorage.getItem("chatHistory")) || {};
     const userChats = storedChats[loggedInUser?.email]?.[expertId] || [];
+
+    // Ne mettez à jour les messages que si nécessaire
     if (JSON.stringify(userChats) !== JSON.stringify(messages)) {
       setMessages(userChats);
     }
-  }, [loggedInUser, expertId]); // Gardez les dépendances essentielles
+  }, [loggedInUser, expertId, messages]);
 
-  // Save messages to localStorage
   const saveMessagesToLocalStorage = (newMessages) => {
     const storedChats = JSON.parse(localStorage.getItem("chatHistory")) || {};
     const userChats = storedChats[loggedInUser?.email] || {};
@@ -46,25 +41,7 @@ function Discussion({ customMessage, timestamp }) {
     localStorage.setItem("chatHistory", JSON.stringify(storedChats));
   };
 
-  // Load data from API
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          "https://my.api.mockaroo.com/new.json?key=6c999480"
-        );
-        const data = await response.json();
-        setApiData(data);
-      } catch (err) {
-        console.error("Error fetching API data:", err);
-        setError("Failed to load data. Please try again later.");
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (!userMessage.trim()) return;
 
     const newUserMessage = {
@@ -81,30 +58,44 @@ function Discussion({ customMessage, timestamp }) {
     setError("");
 
     try {
-      // Filter API data based on the current specialty
-      const filteredData = apiData.filter(
-        (item) => item.category === specialty
+      console.log("Envoi de la requête à l'API...");
+      const response = await fetch(
+        "https://api.groq.com/openai/v1/chat/completions",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer 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`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            model: "llama3-8b-8192",
+            messages: [
+              { role: "system", content: `You are an expert in ${specialty}.` },
+              { role: "user", content: userMessage },
+            ],
+            max_tokens: 100,
+          }),
+        }
       );
-      console.log("Filtered data based on specialty:", filteredData);
 
-      // Configure Fuse.js with filtered data
-      const fuse = new Fuse(filteredData, {
-        keys: ["question"], // Search within the "question" field
-        threshold: 0.5, // Accept loose matches
-        minMatchCharLength: 1, // Match even a single word
-        includeScore: true, // Include scores for sorting results
-        shouldSort: true, // Sort results by relevance
-      });
+      console.log("Réponse brute de l'API :", response);
 
-      // Search in the filtered data
-      const results = fuse.search(userMessage);
-      console.log("Search results:", results);
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error(
+          "Erreur API (status non OK) :",
+          response.status,
+          errorText
+        );
+        throw new Error(`API Error: ${response.status}`);
+      }
 
-      // Handle response
+      const data = await response.json();
+      console.log("Données JSON reçues :", data);
+
       const responseMessage =
-        results.length > 0
-          ? results[0].item.answer
-          : `Sorry, I can only answer questions related to ${specialty}.`;
+        data.choices[0]?.message?.content || "Pas de réponse.";
+      console.log("Message extrait :", responseMessage);
 
       const newExpertMessage = {
         sender: "expert",
@@ -115,9 +106,9 @@ function Discussion({ customMessage, timestamp }) {
       const finalMessages = [...updatedMessages, newExpertMessage];
       setMessages(finalMessages);
       saveMessagesToLocalStorage(finalMessages);
-    } catch (error) {
-      console.error("Error handling message:", error);
-      setError("An error occurred. Please try again later.");
+    } catch (err) {
+      console.error("Erreur lors de l'appel API :", err);
+      setError("Une erreur s'est produite. Réessayez plus tard.");
     } finally {
       setLoading(false);
       setUserMessage("");
@@ -125,7 +116,7 @@ function Discussion({ customMessage, timestamp }) {
   };
 
   if (!specialty) {
-    return <p className="text-center text-red-500">Expert not found!</p>;
+    return <p className="text-center text-red-500">Expert introuvable !</p>;
   }
 
   return (
@@ -134,7 +125,6 @@ function Discussion({ customMessage, timestamp }) {
         {formatDate(timestamp)}
       </p>
 
-      {/* Display messages */}
       <div className="flex-1 overflow-y-auto p-2 space-y-3 custom-scrollbar">
         {messages.map((msg, index) => (
           <DiscussionBubble
@@ -146,14 +136,12 @@ function Discussion({ customMessage, timestamp }) {
         ))}
       </div>
 
-      {/* Display errors */}
       {error && <p className="text-red-500 text-sm text-center">{error}</p>}
 
-      {/* Input field */}
       <div className="mt-4 flex items-center gap-1">
         <input
           type="text"
-          placeholder={`Ask something about ${specialty}`}
+          placeholder={`Posez une question sur ${specialty}`}
           value={userMessage}
           onChange={(e) => setUserMessage(e.target.value)}
           className="text-sm flex-grow border border-gray-300 rounded-lg px-4 py-2 shadow-sm focus:outline-none focus:ring-orange focus:ring-1"
@@ -163,7 +151,7 @@ function Discussion({ customMessage, timestamp }) {
           className="bg-orange text-white font-semibold px-4 h-full rounded-lg hover:bg-customBlue shadow-lg hover:shadow-xl transition duration-300 flex items-center justify-center"
           disabled={loading}
         >
-          {loading ? "Loading..." : <LuSendHorizontal size={20} />}
+          {loading ? "Envoi..." : <LuSendHorizontal size={20} />}
         </button>
       </div>
     </div>
