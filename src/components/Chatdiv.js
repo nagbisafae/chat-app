@@ -88,8 +88,8 @@ function Chatdiv() {
   return (
     <div
       className="bg-white rounded-[20px] shadow-md overflow-hidden p-4
-      w-[80%] max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl
-      h-[70vh] sm:h-[75vh] lg:h-[95vh] flex flex-col"
+      w-[90%] max-w-[450px] sm:max-w-[500px] md:max-w-[600px] lg:max-w-lg xl:max-w-xl
+      h-[550px] sm:h-[75vh] lg:h-[95vh] flex flex-col mb-10 lg:mb-0"
     >
       <SearchBar
         value={searchTerm}

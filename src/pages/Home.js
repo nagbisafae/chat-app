@@ -34,7 +34,7 @@ function Home() {
         selectedCategory={selectedCategory}
         onCategoryChange={setSelectedCategory}
       />
-      <div className="w-full max-w-2xl mt-6 grid grid-cols-1 gap-4 px-4 lg:px-0 mx-auto">
+      <div className="w-full max-w-2xl mt-5 grid grid-cols-1 gap-4 px-4 lg:px-0 mx-auto">
         {filteredExperts.map((expert) => (
           <div key={expert.id} className="w-full">
             <Card

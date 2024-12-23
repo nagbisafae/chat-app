@@ -48,7 +48,7 @@ function Infodiv() {
           />
         )}
       </div>
-      <div className=" bg-white bg-opacity-70 lg:h-72 h-[950px] lg:rounded-lg  md:rounded-lg rounded-t-3xl mt-3 pt-6 lg:w-[777px] w-full md:w-[550px]  pb-14 md:pb-2 justify-end items-center ">
+      <div className=" bg-white bg-opacity-70 lg:h-72 h-[550px] lg:rounded-lg  md:rounded-lg rounded-t-3xl mt-3 pt-6 lg:w-[777px] w-full md:w-[550px]  pb-14 md:pb-2 justify-end items-center ">
         <div className="grid md:grid-cols-2  grid-cols-1 justify-items-center items-center">
           <Infochamps
             label="Full Name"
