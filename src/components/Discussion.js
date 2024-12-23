@@ -30,8 +30,10 @@ function Discussion({ customMessage, timestamp }) {
   useEffect(() => {
     const storedChats = JSON.parse(localStorage.getItem("chatHistory")) || {};
     const userChats = storedChats[loggedInUser?.email]?.[expertId] || [];
-    setMessages(userChats);
-  }, [loggedInUser, expertId]);
+    if (JSON.stringify(userChats) !== JSON.stringify(messages)) {
+      setMessages(userChats);
+    }
+  }, [loggedInUser, expertId]); // Gardez les dépendances essentielles
 
   // Save messages to localStorage
   const saveMessagesToLocalStorage = (newMessages) => {
@@ -49,7 +51,7 @@ function Discussion({ customMessage, timestamp }) {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "https://my.api.mockaroo.com/chatss.json?key=a7019b10"
+          "https://my.api.mockaroo.com/new.json?key=6c999480"
         );
         const data = await response.json();
         setApiData(data);

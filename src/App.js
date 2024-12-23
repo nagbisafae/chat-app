@@ -19,7 +19,7 @@ function App() {
           <Route path="/Signup" element={<Signup />} />
           <Route path="/Profile" element={<Profile />} />
           <Route path="/Chats" element={<Chats />} />
-          <Route path="/Chats/:expertId" element={<Chats />} />
+          <Route path="/Chats/:expertId" element={<Chats />} />{" "}
         </Routes>
       </Router>
     </div>
