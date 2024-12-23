@@ -23,7 +23,9 @@ function Login() {
 
     // Retrieve users from localStorage
     const users = JSON.parse(localStorage.getItem("users")) || [];
-    const user = users.find((user) => user.email === email && user.password === password);
+    const user = users.find(
+      (user) => user.email === email && user.password === password
+    );
 
     if (!user) {
       alert("Invalid email or password!");
@@ -37,7 +39,7 @@ function Login() {
     alert(`Welcome back, ${user.name}!`);
     navigate("/Home");
   };
-  
+
   return (
     <>
       <div className="custom-scrollbar bg-gradient-to-b from-BlueVert to-[#F3F6F6] custom-scrollbar">
