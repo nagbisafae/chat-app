@@ -14,14 +14,17 @@ const Sidebar = ({ att }) => {
   const [selected, setSelected] = useState("Home");
 
   useEffect(() => {
-    // Update selected state based on current URL
     const currentPath = location.pathname;
-    if (currentPath === "/Chats") {
+
+    if (currentPath.startsWith("/Chats/")) {
+      // Vérifie aussi les chemins comme "/Chats/1", "/Chats/2"
       setSelected("Chats");
     } else if (currentPath === "/Profile") {
       setSelected("Profile");
-    } else {
+    } else if (currentPath === "/Home") {
       setSelected("Home");
+    } else {
+      setSelected(null); // Aucun onglet sélectionné pour d'autres chemins
     }
   }, [location.pathname]);
 
@@ -86,10 +89,7 @@ const Sidebar = ({ att }) => {
         {items.map((item) => (
           <button
             key={item.id}
-            onClick={() => {
-              setSelected(item.id);
-              navigate(item.path);
-            }}
+            onClick={() => navigate(item.path)}
             className={`flex flex-col items-center ${
               selected === item.id
                 ? "text-orange font-bold"
