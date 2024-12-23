@@ -4,7 +4,7 @@ import Discdiv from "../components/Discdiv";
 import Chatdiv from "../components/Chatdiv";
 import DefaultDiscdiv from "../components/DefaultDiscdiv";
 import Sidebar from "../components/Sidebar";
-
+//import Sidebarmin from "../components/Sidebarmin";
 function Chats() {
   const { expertId } = useParams();
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 1024);
@@ -34,7 +34,7 @@ function Chats() {
       <Sidebar />
 
       {/* Main Content */}
-      <div className="flex-grow lg:ml-[200px] px-6 flex flex-col lg:flex-row gap-4 mt-[15px] mb-[15px]">
+      <div className="flex-grow lg:ml-[200px] px-6 flex flex-col lg:flex-row gap-4 mt-[15px] mb-[15px] justify-center items-center">
         {/* Chatdiv visible only on small screens or alongside Discdiv on larger screens */}
         {(isSmallScreen ? showChatDiv : true) && (
           <Chatdiv className="w-full lg:w-1/3" />
@@ -42,18 +42,18 @@ function Chats() {
 
         {/* Discdiv or DefaultDiscdiv */}
         <div
-  className={`flex-grow flex items-center justify-center ${
-    isSmallScreen && !showChatDiv ? "block" : "hidden lg:flex"
-  }`}
->
-  <div className="w-full max-w-3xl">
-    {expertId ? (
-      <Discdiv />
-    ) : (
-      !isSmallScreen && <DefaultDiscdiv /> // Hide DefaultDiscdiv on small screens
-    )}
-  </div>
-</div>
+          className={`flex-grow flex items-center justify-center ${
+            isSmallScreen && !showChatDiv ? "block" : "hidden lg:flex"
+          }`}
+        >
+          <div className="w-full max-w-3xl">
+            {expertId ? (
+              <Discdiv />
+            ) : (
+              !isSmallScreen && <DefaultDiscdiv /> // Hide DefaultDiscdiv on small screens
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
