@@ -1,57 +1,135 @@
-import React from "react";
-import Avatardiv from "./Avatardiv";
-import Nada from "../assets/Nada.png";
-import Ines from "../assets/Ines.png";
-import Imad from "../assets/Imad.png";
-import Rania from "../assets/Rania.png";
-// import {Nada} from "../assets/Nada.png"
-import { CiSearch } from "react-icons/ci";
+import React, { useEffect, useState } from "react";
+import experts from "../data/experts";
+import SearchBar from "./SearchBar";
+import { useNavigate } from "react-router-dom";
 
 function Chatdiv() {
+  const [latestMessages, setLatestMessages] = useState({});
+  const [latestTimestamps, setLatestTimestamps] = useState({});
+  const [activeExperts, setActiveExperts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchActiveExperts = () => {
+      const chatHistory = JSON.parse(localStorage.getItem("chatHistory")) || {};
+      const userChats = chatHistory[loggedInUser?.email] || {};
+
+      const activeExpertIds = Object.keys(userChats).map(Number);
+      const activeExperts = experts.filter((expert) =>
+        activeExpertIds.includes(expert.id)
+      );
+
+      const latestMessages = activeExperts.reduce((acc, expert) => {
+        const messages = userChats[expert.id] || [];
+        if (messages.length > 0) {
+          const latestMessage = messages[messages.length - 1];
+          acc[expert.id] = latestMessage.message;
+        }
+        return acc;
+      }, {});
+
+      const latestTimestamps = activeExperts.reduce((acc, expert) => {
+        const messages = userChats[expert.id] || [];
+        if (messages.length > 0) {
+          const latestMessage = messages[messages.length - 1];
+          acc[expert.id] = latestMessage.timestamp;
+        }
+        return acc;
+      }, {});
+
+      setActiveExperts(activeExperts);
+      setLatestMessages(latestMessages);
+      setLatestTimestamps(latestTimestamps);
+    };
+
+    fetchActiveExperts();
+  }, [loggedInUser]);
+
+  const formatTimestamp = (timestamp) => {
+    const messageDate = new Date(timestamp);
+    const today = new Date();
+
+    if (
+      messageDate.getDate() === today.getDate() &&
+      messageDate.getMonth() === today.getMonth() &&
+      messageDate.getFullYear() === today.getFullYear()
+    ) {
+      // Format as h:m if it's today
+      return messageDate.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+    } else {
+      // Format as dd/mm otherwise
+      return `${String(messageDate.getDate()).padStart(2, "0")}/${String(
+        messageDate.getMonth() + 1
+      ).padStart(2, "0")}`;
+    }
+  };
+
+  const handleCardClick = (expertId) => {
+    navigate(`/chats/${expertId}`);
+    window.location.reload(); // Reload the page after navigation
+  };
+
+  const filteredExperts = activeExperts
+  .filter((expert) =>
+    expert.name.toLowerCase().includes(searchTerm.toLowerCase())
+  )
+  .sort((a, b) => {
+    const timestampA = new Date(latestTimestamps[a.id]);
+    const timestampB = new Date(latestTimestamps[b.id]);
+
+    return timestampB - timestampA; // Sort descending (newest first)
+  });
+
   return (
-    <div className="bg-white rounded-xl w-72 lg:h-auto h-[400px] md:h-auto ">
-      <div className="bg-white rounded-lg shadow-lg flex justify-around  mt-6 h-14 text-center ml-3 mr-3 ">
-        <input
-          type="text"
-          placeholder="Search"
-          className="outline-none text-sm"
-        />
-        <CiSearch className="text-gray-500 self-center text-lg cursor-pointer " />
+    <div
+      className="bg-white rounded-[20px] shadow-md overflow-hidden p-4
+      w-[30%] max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl
+      h-[70vh] sm:h-[75vh] lg:h-[95vh] flex flex-col"
+    >
+      <SearchBar
+        value={searchTerm}
+        onChange={setSearchTerm}
+        placeholder="Search experts..."
+      />
+
+<div className="space-y-4">
+  {filteredExperts.map((expert) => (
+    <div
+      key={expert.id}
+      className="flex items-center bg-gray-50 cursor-pointer hover:bg-BlueVert transition rounded-lg p-3 shadow-sm"
+      onClick={() => handleCardClick(expert.id)}
+    >
+      <img
+        src={expert.image}
+        alt={expert.name}
+        className="w-12 h-12 rounded-full object-cover shadow-md"
+      />
+      <div className="ml-4 flex flex-col overflow-hidden flex-grow">
+      <p className="text-xs font-bold text-customBlue">
+        {expert.name.split(" - ")[0]}
+      </p>
+        <p className="text-xs text-gray-600 truncate overflow-hidden whitespace-nowrap max-w-full">
+          {latestMessages[expert.id] || ""}
+        </p>
       </div>
-      <div className="flex justify-center items-center mt-4">
-        <Avatardiv
-          img={Nada}
-          name="Nada Lawyer"
-          lastmess="Good luck for your journey"
-          numb="2"
-          bgcol="bg-customBlue1"
-          bgnumb="bg-customBlue"
-        />
+      <div className="ml-auto text-xs text-gray-400">
+        {latestTimestamps[expert.id]
+          ? formatTimestamp(latestTimestamps[expert.id])
+          : ""}
       </div>
-      <div className="flex justify-center items-center mt-4">
-        <Avatardiv
-          img={Ines}
-          name="Firefighter Ines"
-          lastmess="Don’t panic !! "
-          bgcol="bg-BlueVert"
-        />
-      </div>
-      <div className="flex justify-center items-center mt-4">
-        <Avatardiv
-          img={Imad}
-          name="HR Specialist Imad"
-          lastmess="Focus on building skills"
-          bgcol="bg-BlueVert"
-        />
-      </div>
-      <div className="flex justify-center items-center mt-4">
-        <Avatardiv
-          img={Rania}
-          name="Dr Rania"
-          lastmess="Thank you doctor for your advices "
-          bgcol="bg-BlueVert"
-        />
-      </div>
+    </div>
+  ))}
+  {filteredExperts.length === 0 && (
+    <p className="text-sm text-customBlue text-center font-semibold">
+      No experts found
+    </p>
+  )}
+</div>
+
+
+
     </div>
   );
 }

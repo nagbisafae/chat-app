@@ -6,7 +6,7 @@ function Cta() {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate("/Login"); 
+    navigate("/SignUp"); 
   };
 
   return (

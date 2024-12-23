@@ -1,10 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import InputField from "../components/InputField";
 import Socialmedia from "../components/Socialmedia";
 import GreenCard from "../components/GreenCard";
 import { motion } from "framer-motion";
 import girl from "../assets/Profilegirl.png";
-function signup() {
+import { useNavigate } from "react-router-dom";
+
+function Signup() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const handleSignup = (e) => {
+    e.preventDefault();
+
+    // Validate inputs
+    if (!name || !email || !password) {
+      alert("All fields are required!");
+      return;
+    }
+
+    // Check and store user in localStorage
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const userExists = users.find((user) => user.email === email);
+
+    if (userExists) {
+      alert("A user with this email already exists!");
+      return;
+    }
+
+    users.push({ name, email, password });
+    localStorage.setItem("users", JSON.stringify(users));
+    alert("Signup successful! Please log in.");
+    navigate("/Login");
+  };
+
   return (
     <>
       <div className="flex justify-between bg-gradient-to-b from-BlueVert to-[#F3F6F6]">
@@ -34,15 +65,17 @@ function signup() {
               </label>
             </div>
             <div className="flex justify-center items-center">
-              <div class=" mt-3  lg:drop-shadow-lg lg:rounded-3xl lg:border lg:border-BlueVert-2 lg:w-96  lg:bg-BlueVert lg:bg-opacity-50 ">
+              <div class=" mt-3  lg:drop-shadow-lg lg:rounded-3xl lg:border border-BlueVert-2 lg:w-96  lg:bg-BlueVert lg:bg-opacity-50 ">
                 {/* Formulaire   */}
-                <form class="relative">
+                <form class="relative" onSubmit={handleSignup}>
                   <div class="flex justify-center items-center">
                     <InputField
                       label="Name:"
                       type="name"
                       placeholder="Enter your name"
                       col="text-gris"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
                     />
                     <svg
                       class="absolute left-300px top-16"
@@ -68,6 +101,8 @@ function signup() {
                       type="email"
                       placeholder="Enter your email"
                       col="text-gris"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                     />
                     <svg
                       class="absolute left-300px top-36"
@@ -90,6 +125,8 @@ function signup() {
                       type="password"
                       placeholder="Enter your password"
                       col="text-gris"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                     />
                     <svg
                       class="absolute left-300px top-cust "
@@ -131,16 +168,13 @@ function signup() {
                       />
                     </svg>
                   </div>
-                  <label class="font-serif font-bold text-customBlue inline-block text-sm ml-120px mt-8 ">
-                    Forgot password ?
-                  </label>
                 </form>
                 <Socialmedia
                   buttonText2="/Login"
                   gray="Already have an account? "
                   buttonText="Create an account"
                   undertext="&nbsp;Log in"
-                  btnhref="/Home"
+                  handleClick={handleSignup}
                 />
               </div>
             </div>
@@ -151,4 +185,4 @@ function signup() {
   );
 }
 
-export default signup;
+export default Signup;

@@ -3,7 +3,7 @@ import { IoSearchOutline } from "react-icons/io5";
 
 function SearchBar({ value, onChange, placeholder = "Search..." }) {
   return (
-    <div className="mx-4 my-4">
+    <div className="my-4">
         <div className="relative w-full max-w-2xl mx-auto">
       <input
         type="text"

@@ -9,7 +9,7 @@ function Chats() {
   const { expertId } = useParams();
 
   return (
-    <div className="bg-gradient-to-b from-BlueVert to-[#F3F6F6] min-h-screen flex h-screen">
+    <div className="bg-gradient-to-b from-BlueVert to-[#F3F6F6] min-h-screen flex">
       <Sidebar />
 
       {/* Main Content */}
