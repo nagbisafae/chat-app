@@ -122,7 +122,7 @@ function Chatdiv() {
     </div>
   ))}
   {filteredExperts.length === 0 && (
-    <p className="text-sm text-customBlue text-center font-semibold">
+    <p className="text-sm text-customBlue text-center font-semibold mt-10">
       No experts found
     </p>
   )}
