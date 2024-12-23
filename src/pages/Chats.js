@@ -13,10 +13,10 @@ function Chats() {
       <Sidebar />
 
       {/* Main Content */}
-      <div className="flex-grow lg:ml-[200px] px-6 flex flex-col lg:flex-row gap-4 mt-[15px] mb-[15px]">
-        <Chatdiv className="w-full lg:w-1/3" />
+      <div className="flex-grow lg:ml-[200px] px-6 flex flex-col lg:flex-row gap-4 mt-[15px] mb-[15px] justify-center items-center">
+        <Chatdiv />
 
-        <div className="flex-grow flex justify-center">
+        <div className="lg:flex-grow lg:flex lg:justify-center hidden">
           <div className="w-full max-w-3xl">
             {expertId ? <Discdiv /> : <DefaultDiscdiv />}
           </div>
