@@ -49,7 +49,7 @@ function Discussion({ customMessage, timestamp }) {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "https://my.api.mockaroo.com/response.json?key=3d86e990"
+          "https://my.api.mockaroo.com/chatss.json?key=a7019b10"
         );
         const data = await response.json();
         setApiData(data);
@@ -79,23 +79,30 @@ function Discussion({ customMessage, timestamp }) {
     setError("");
 
     try {
-      // Configurer Fuse.js
-      const fuse = new Fuse(apiData, {
-        keys: ["question"], // Rechercher dans le champ "question"
-        threshold: 0.6, // Accepte des correspondances éloignées
-        minMatchCharLength: 1, // Correspond même à un seul mot
-        includeScore: true, // Ajoute un score pour trier les résultats
-        shouldSort: true, // Trie les résultats par pertinence
+      // Filter API data based on the current specialty
+      const filteredData = apiData.filter(
+        (item) => item.category === specialty
+      );
+      console.log("Filtered data based on specialty:", filteredData);
+
+      // Configure Fuse.js with filtered data
+      const fuse = new Fuse(filteredData, {
+        keys: ["question"], // Search within the "question" field
+        threshold: 0.5, // Accept loose matches
+        minMatchCharLength: 1, // Match even a single word
+        includeScore: true, // Include scores for sorting results
+        shouldSort: true, // Sort results by relevance
       });
 
-      // Rechercher dans les données de l'API
+      // Search in the filtered data
       const results = fuse.search(userMessage);
+      console.log("Search results:", results);
 
-      // Gérer la réponse
+      // Handle response
       const responseMessage =
         results.length > 0
           ? results[0].item.answer
-          : "Sorry, I couldn't find a relevant answer. Could you try rephrasing?";
+          : `Sorry, I can only answer questions related to ${specialty}.`;
 
       const newExpertMessage = {
         sender: "expert",
@@ -120,7 +127,7 @@ function Discussion({ customMessage, timestamp }) {
   }
 
   return (
-    <div className="p-4 bg-white/70 rounded-xl shadow-md h-[550px] flex flex-col">
+    <div className="p-4 bg-white/70 rounded-xl shadow-md h-[420px]  flex flex-col">
       <p className="text-orange text-sm font-semibold text-center mb-2">
         {formatDate(timestamp)}
       </p>
