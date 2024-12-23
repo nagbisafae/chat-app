@@ -18,7 +18,7 @@ function GreenCard({
 
   return (
     <motion.div
-      className={`bg-customBlue h-screen w-custom2 ${roundedClass} flex justify-center pt-12 ${att}`}
+      className={`bg-customBlue h-screen w-[550px] ${roundedClass} flex justify-center pt-12 ${att}`}
       initial={{ opacity: 0, x: "100%" }}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: "-100%" }}
