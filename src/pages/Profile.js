@@ -6,13 +6,10 @@ import "../App.css";
 
 function Profile() {
   return (
-    <div className="bg-gradient-to-b from-BlueVert to-[#F3F6F6] min-h-screen h-screen flex">
-      {/* Sidebar */}
+    <div className="min-h-screen h-screen overflow-y-auto bg-gradient-to-b from-BlueVert to-[#F3F6F6] pb-2 lg:pb-0 custom-scrollbar">
+      <Header />
       <Sidebar />
-
-      {/* Main Content */}
       <div className="flex-grow lg:ml-[200px] px-6 flex flex-col items-center">
-        <Header />
         <Infodiv />
       </div>
     </div>
