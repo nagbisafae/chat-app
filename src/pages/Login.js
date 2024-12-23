@@ -1,11 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 import "../App.css";
 import InputField from "../components/InputField";
 import Socialmedia from "../components/Socialmedia";
 import GreenCard from "../components/GreenCard";
 import girl from "../assets/Profilegirl.png";
 import { motion } from "framer-motion";
-function login() {
+import { useNavigate } from "react-router-dom";
+
+function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    // Validate inputs
+    if (!email || !password) {
+      alert("All fields are required!");
+      return;
+    }
+
+    // Retrieve users from localStorage
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const user = users.find((user) => user.email === email && user.password === password);
+
+    if (!user) {
+      alert("Invalid email or password!");
+      return;
+    }
+
+    // Save logged-in user to localStorage
+    localStorage.setItem("loggedInUser", JSON.stringify(user));
+
+    // Redirect to the home page
+    alert(`Welcome back, ${user.name}!`);
+    navigate("/Home");
+  };
+  
   return (
     <>
       <div className="custom-scrollbar bg-gradient-to-b from-BlueVert to-[#F3F6F6] custom-scrollbar">
@@ -29,13 +61,15 @@ function login() {
                 <div class="  mt-10    lg:drop-shadow-lg lg:rounded-3xl lg:border lg:border-BlueVert-2 lg:w-96  lg:bg-BlueVert lg:bg-opacity-50 ">
                   {/* Formulaire   */}
 
-                  <form class="relative ">
+                  <form class="relative" onSubmit={handleLogin}>
                     <div class="flex justify-center items-center">
                       <InputField
                         label="Email:"
                         type="email"
                         placeholder="Enter your email"
                         col="text-gris"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                       />
                       <svg
                         class="absolute left-300px top-16"
@@ -58,6 +92,8 @@ function login() {
                         type="password"
                         placeholder="Enter your password"
                         col="text-gris"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                       />
                       <svg
                         class="absolute left-300px top-36"
@@ -108,7 +144,7 @@ function login() {
                     buttonText="Log in "
                     undertext="&nbsp;create an account "
                     gray="Not registred yet ?  "
-                    btnhref="/Home"
+                    handleClick={handleLogin}
                   />
                 </div>
               </div>
@@ -133,4 +169,4 @@ function login() {
   );
 }
 
-export default login;
+export default Login;

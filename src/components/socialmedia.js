@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-function Socialmedia({ buttonText, undertext, gray, btnhref, buttonText2 }) {
+function Socialmedia({ buttonText, undertext, gray, handleClick, buttonText2 }) {
   const navigate = useNavigate();
   return (
     <>
@@ -107,7 +107,7 @@ function Socialmedia({ buttonText, undertext, gray, btnhref, buttonText2 }) {
       </div>
       <div class="flex justify-center items-center">
         <button
-          onClick={() => navigate(btnhref)}
+          onClick={handleClick} 
           class="hover:bg-customBlue transition duration-150 ease-out hover:ease-in bg-orange h-10 text-white rounded-full drop-shadow-lg font-serif w-72 mt-4 text-center font-semibold text-sm"
         >
           {buttonText}

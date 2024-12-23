@@ -1,30 +1,49 @@
 import React, { useState, useEffect } from "react";
 import DiscussionBubble from "./DiscussionBubble";
-import { useParams } from "react-router-dom"; // Pour récupérer l'ID depuis l'URL
+import { useParams } from "react-router-dom"; // For fetching the ID from the URL
 import { formatDate } from "../utils/formatDate";
 import { LuSendHorizontal } from "react-icons/lu";
 
 function Discussion({ customMessage, timestamp }) {
-  const { expertId } = useParams(); // Récupère l'ID depuis l'URL
+  const { expertId } = useParams(); // Fetch the ID from the URL
   const [userMessage, setUserMessage] = useState("");
-  const [messages, setMessages] = useState([
-    { sender: "expert", message: customMessage, timestamp },
-  ]);
+  const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [apiData, setApiData] = useState([]); // Stocker les données récupérées de l'API
+  const [apiData, setApiData] = useState([]); // Store API data
 
-  // Mapping des spécialités en fonction de l'ID
+  // Fetch logged-in user
+  const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+
+  // Specialties based on expert ID
   const specialties = {
     1: "health", // Salma
     2: "lawyer", // Nada
     3: "cuisine", // Amine
   };
 
-  // Récupération de la spécialité
+  // Get specialty
   const specialty = specialties[expertId] || null;
 
-  // Charger les données de l'API Mockaroo
+  // Load chat history from localStorage on mount
+  useEffect(() => {
+    const storedChats = JSON.parse(localStorage.getItem("chatHistory")) || {};
+    const userChats = storedChats[loggedInUser?.email]?.[expertId] || [];
+    setMessages(userChats);
+  }, [loggedInUser, expertId]);
+
+  // Save messages to localStorage
+  const saveMessagesToLocalStorage = (newMessages) => {
+    const storedChats = JSON.parse(localStorage.getItem("chatHistory")) || {};
+    const userChats = storedChats[loggedInUser?.email] || {};
+
+    userChats[expertId] = newMessages;
+    storedChats[loggedInUser?.email] = userChats;
+
+    localStorage.setItem("chatHistory", JSON.stringify(storedChats));
+  };
+
+  // Load data from API
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -32,7 +51,7 @@ function Discussion({ customMessage, timestamp }) {
           "https://my.api.mockaroo.com/response.json?key=3d86e990"
         );
         const data = await response.json();
-        setApiData(data); // Stocker les données récupérées
+        setApiData(data);
       } catch (err) {
         console.error("Error fetching API data:", err);
         setError("Failed to load data. Please try again later.");
@@ -42,7 +61,7 @@ function Discussion({ customMessage, timestamp }) {
     fetchData();
   }, []);
 
-  // Fonction pour normaliser une chaîne
+  // Normalize text
   const normalizeText = (text) => {
     return text.toLowerCase().replace(/\s+/g, "");
   };
@@ -56,12 +75,14 @@ function Discussion({ customMessage, timestamp }) {
       timestamp: new Date(),
     };
 
-    setMessages((prev) => [...prev, newUserMessage]);
+    const updatedMessages = [...messages, newUserMessage];
+    setMessages(updatedMessages);
+    saveMessagesToLocalStorage(updatedMessages);
+
     setLoading(true);
     setError("");
 
     try {
-      // Recherche de la réponse dans les données API
       const normalizedUserMessage = normalizeText(userMessage);
       const matchedResponse = apiData.find(
         (entry) =>
@@ -73,20 +94,21 @@ function Discussion({ customMessage, timestamp }) {
         ? matchedResponse.answer
         : `Sorry, I don't know ask me Later .`;
 
-      // Ajout de la réponse de l'expert
       const newExpertMessage = {
         sender: "expert",
         message: responseMessage,
         timestamp: new Date(),
       };
 
-      setMessages((prev) => [...prev, newExpertMessage]);
+      const finalMessages = [...updatedMessages, newExpertMessage];
+      setMessages(finalMessages);
+      saveMessagesToLocalStorage(finalMessages);
     } catch (error) {
       console.error("Error handling message:", error);
       setError("An error occurred. Please try again later.");
     } finally {
       setLoading(false);
-      setUserMessage(""); // Vide le champ de saisie
+      setUserMessage("");
     }
   };
 
@@ -100,7 +122,7 @@ function Discussion({ customMessage, timestamp }) {
         {formatDate(timestamp)}
       </p>
 
-      {/* Affichage des messages */}
+      {/* Display messages */}
       <div className="flex-1 overflow-y-auto p-2 space-y-3 custom-scrollbar">
         {messages.map((msg, index) => (
           <DiscussionBubble
@@ -112,10 +134,10 @@ function Discussion({ customMessage, timestamp }) {
         ))}
       </div>
 
-      {/* Affichage des erreurs */}
+      {/* Display errors */}
       {error && <p className="text-red-500 text-sm text-center">{error}</p>}
 
-      {/* Zone de saisie */}
+      {/* Input field */}
       <div className="mt-4 flex items-center gap-1">
         <input
           type="text"
