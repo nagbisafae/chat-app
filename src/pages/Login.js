@@ -36,7 +36,7 @@ function Login() {
     localStorage.setItem("loggedInUser", JSON.stringify(user));
 
     // Redirect to the home page
-    alert(`Welcome back, ${user.name}!`);
+    //alert(`Welcome back, ${user.name}!`);
     navigate("/Home");
   };
 

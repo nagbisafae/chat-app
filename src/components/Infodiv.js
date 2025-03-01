@@ -1,55 +1,104 @@
-import React, { useState, useRef } from "react";
-
+import React, { useState, useRef, useEffect } from "react";
 import Infochamps from "./Infochamps";
-import Aya from "../assets/AyaNajib.png";
+// Replace the line below with your own default image
+import DefaultPic from "../assets/defaultProfile.png";
 
 function Infodiv() {
-  const [userName, setuserName] = useState("Aya Najib");
-  const [email, setemail] = useState("aya.najib@gmail.com");
-  const [phonenumber, setphonenumber] = useState("+212 69 34 34 12");
-  const [password, setpassword] = useState("********");
-  const [Image, setImage] = useState(Aya);
+  // State variables for user data
+  const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [password, setPassword] = useState("********"); 
+  const [image, setImage] = useState(DefaultPic);
+  const [isEditing, setIsEditing] = useState(false);
 
+  const fileInputRef = useRef(null);
+
+  // Load user data from localStorage on component mount
+  useEffect(() => {
+    const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+    if (loggedInUser) {
+      setUserName(loggedInUser.name || "");
+      setEmail(loggedInUser.email || "");
+      setPhoneNumber(loggedInUser.phone || "");
+      if (loggedInUser.image) {
+        setImage(loggedInUser.image);
+      }
+    }
+  }, []);
+
+  // Function to save updated user data to localStorage
+  const updateUserData = (key, value) => {
+    const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser")) || {};
+    loggedInUser[key] = value;
+    localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
+  };
+
+  // Handle image selection and update localStorage
   const handleImageChange = (e) => {
-    const file = e.target.files[0];
+    const file = e.target.files?.[0];
     if (file) {
-      setImage(URL.createObjectURL(file)); // Mettre à jour l'image
+      const imageUrl = URL.createObjectURL(file);
+      setImage(imageUrl);
+      updateUserData("image", imageUrl);
     }
   };
-  const handleNameChange = (e) => setuserName(e.target.value);
-  const handleEmailChange = (e) => setemail(e.target.value);
-  const handlePhoneChange = (e) => setphonenumber(e.target.value);
-  const handlePasswordChange = (e) => setpassword(e.target.value);
-  const [isEditing, setIsEditing] = useState(false);
-  const handleEditClick = () => {
-    setIsEditing(!isEditing); // Bascule entre mode édition et lecture seule
+
+  // Handle changes in text fields
+  const handleNameChange = (e) => {
+    setUserName(e.target.value);
+    updateUserData("name", e.target.value);
   };
-  const fileInputRef = useRef(null);
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    updateUserData("email", e.target.value);
+  };
+
+  const handlePhoneChange = (e) => {
+    setPhoneNumber(e.target.value);
+    updateUserData("phone", e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    updateUserData("password", e.target.value);
+  };
+
+  // Toggle edit mode
+  const handleEditClick = () => {
+    setIsEditing((prev) => !prev);
+  };
+
   return (
     <>
+      {/* Profile Picture Section */}
       <div>
         <img
-          src={Image}
+          src={image}
           alt="Profile"
-          className="w-28 mt-5 cursor-pointer" // Ajouter un curseur pointer pour indiquer que l'image est cliquable
-          onClick={() => fileInputRef.current?.click()} // Utilisation de useRef pour cliquer sur l'input file
+          className="w-28 mt-5 cursor-pointer"
+          onClick={() => fileInputRef.current?.click()}
         />
         <div className="flex justify-center items-center">
-          <label className="font-libre text-customBlue mt-2 font-bold">{userName}</label>
+          <label className="font-libre text-customBlue mt-2 font-bold">
+            {userName || "Your Name"}
+          </label>
         </div>
-        {/* Champ de sélection d'image masqué, qui est déclenché par un clic sur l'image */}
-        {isEditing && (
-          <input
-            ref={fileInputRef} // Assignation de la référence à l'input
-            type="file"
-            accept="image/*" // Limite aux fichiers image
-            onChange={handleImageChange} // Fonction pour gérer le changement d'image
-            className="hidden" // Masquer l'input
-          />
-        )}
+
+        {/* Hidden file input always present, triggered by clicking the image */}
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/*"
+          onChange={handleImageChange}
+          className="hidden"
+        />
       </div>
-      <div className=" bg-white bg-opacity-70 lg:h-72 h-[550px] lg:rounded-lg  md:rounded-lg rounded-t-3xl mt-3 pt-6 lg:w-[777px] w-full md:w-[550px]  pb-14 md:pb-2 justify-end items-center ">
-        <div className="grid md:grid-cols-2  grid-cols-1 justify-items-center items-center">
+
+      {/* Profile Info Section */}
+      <div className="bg-white bg-opacity-70 lg:h-72 h-[550px] lg:rounded-lg md:rounded-lg rounded-t-3xl mt-3 pt-6 lg:w-[777px] w-full md:w-[550px] pb-14 md:pb-2 justify-end items-center">
+        <div className="grid md:grid-cols-2 grid-cols-1 justify-items-center items-center">
           <Infochamps
             label="Full Name"
             value={userName}
@@ -57,18 +106,17 @@ function Infodiv() {
             isEditable={isEditing}
             onChange={handleNameChange}
           />
-
           <Infochamps
-            label="You Email"
+            label="Your Email"
             col="text-orange"
             value={email}
             isEditable={isEditing}
             onChange={handleEmailChange}
           />
           <Infochamps
-            label="Your Phone number "
+            label="Your Phone Number"
             col="text-orange"
-            value={phonenumber}
+            value={phoneNumber}
             isEditable={isEditing}
             onChange={handlePhoneChange}
           />
@@ -83,13 +131,12 @@ function Infodiv() {
         <div className="flex justify-center items-center">
           <button
             onClick={handleEditClick}
-            class="hover:bg-customBlue transition duration-150 ease-out hover:ease-in bg-orange h-10 text-white rounded-full   font-serif w-72 mt-8 mb-8 text-center font-semibold text-sm  "
+            className="hover:bg-customBlue transition duration-150 ease-out hover:ease-in bg-orange h-10 text-white rounded-full font-serif w-72 mt-8 mb-8 text-center font-semibold text-sm"
           >
             {isEditing ? "Save Changes" : "Edit"}
           </button>
         </div>
       </div>
-      {/* <NavPhone /> */}
     </>
   );
 }

@@ -32,7 +32,7 @@ function Signup() {
 
     users.push({ name, email, password });
     localStorage.setItem("users", JSON.stringify(users));
-    alert("Signup successful! Please log in.");
+    //alert("Signup successful! Please log in.");
     navigate("/Login");
   };
 
